@@ -1,9 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Github, Linkedin, Mail, Download, Award, Code, Users, Zap } from 'lucide-react';
-import userImage from '../assets/linkedIn profile.jpg';
 
 const About: React.FC = () => {
+  // Use a more reliable image path for Netlify hosting
+  const userImage = '/linkedin-profile.jpg'; // This will be served from the public folder
+
+  // Fallback image in case the main image fails to load
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    const target = e.target as HTMLImageElement;
+    target.style.display = 'none';
+    // You can set a fallback image here if needed
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -100,6 +109,8 @@ const About: React.FC = () => {
                   src={userImage}
                   alt="Shiwani Yaduka"
                   className="w-80 h-80 rounded-2xl shadow-2xl object-cover"
+                  onError={handleImageError}
+                  loading="lazy"
                 />
                 <motion.div
                   className="absolute -top-4 -right-4 w-32 h-32 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-xl"
