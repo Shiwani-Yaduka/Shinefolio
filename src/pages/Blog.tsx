@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, Clock, ArrowRight, BookOpen, Code, Cloud, Brain } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, BookOpen, Code, Cloud, Brain, Github, Mail, Cpu, Sparkles } from 'lucide-react';
 
 const Blog: React.FC = () => {
   const blogPosts = [
@@ -83,16 +83,168 @@ const Blog: React.FC = () => {
       y: 0,
       opacity: 1,
       transition: {
-        type: "spring",
+        type: "spring" as const,
         stiffness: 100,
         damping: 12,
       },
     },
   };
 
+  const floatingIcons = [
+    { icon: Code, delay: 0, x: '20%', y: '20%' },
+    { icon: Cloud, delay: 0.8, x: '80%', y: '30%' },
+    { icon: Cpu, delay: 1.6, x: '10%', y: '70%' },
+    { icon: Sparkles, delay: 2.4, x: '85%', y: '80%' },
+    { icon: Github, delay: 3.2, x: '15%', y: '40%' },
+    { icon: Brain, delay: 4.0, x: '75%', y: '60%' },
+    { icon: BookOpen, delay: 4.8, x: '90%', y: '15%' },
+    { icon: Calendar, delay: 5.6, x: '5%', y: '25%' },
+    { icon: Clock, delay: 6.4, x: '95%', y: '45%' },
+    { icon: ArrowRight, delay: 7.2, x: '25%', y: '85%' },
+    { icon: Mail, delay: 8.0, x: '70%', y: '10%' },
+  ];
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-blue-900/20">
-      <div className="container mx-auto px-4 py-20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-blue-900/20 relative overflow-hidden">
+      {/* Animated Background Elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Gradient Orbs */}
+        <motion.div
+          className="absolute w-96 h-96 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{ top: '10%', left: '10%' }}
+        />
+        <motion.div
+          className="absolute w-80 h-80 bg-gradient-to-r from-pink-400/20 to-amber-400/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, -80, 0],
+            y: [0, 80, 0],
+            scale: [1, 0.9, 1],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          style={{ top: '50%', right: '10%' }}
+        />
+
+        {/* Floating Icons */}
+        {floatingIcons.map((item, index) => (
+          <motion.div
+            key={index}
+            className={`absolute ${
+              item.icon === Github 
+                ? 'text-gray-600/75 dark:text-gray-400/65' 
+                : item.icon === Brain 
+                ? 'text-purple-500/75 dark:text-purple-400/65'
+                : item.icon === BookOpen 
+                ? 'text-blue-500/75 dark:text-blue-400/65'
+                : item.icon === Calendar 
+                ? 'text-green-500/75 dark:text-green-400/65'
+                : item.icon === Cloud 
+                ? 'text-orange-500/75 dark:text-orange-400/65'
+                : 'text-blue-400/80 dark:text-blue-300/70'
+            }`}
+            initial={{ 
+              opacity: 0, 
+              scale: 0.3,
+              z: -100,
+              rotateX: 30,
+              rotateY: 30,
+              filter: "blur(2px)"
+            }}
+            animate={{ 
+              opacity: [0, 0.5, 0.9, 0.7, 0.4, 0],
+              scale: [0.3, 0.8, 1.2, 1.0, 0.6, 0.4],
+              z: [-100, -50, 0, 50, 100, 150],
+              rotateX: [30, 15, 0, -15, -30, -45],
+              rotateY: [30, 15, 0, 15, 30, 45],
+              y: [0, -30, -60, -90, -120, -150],
+              x: [0, 8, -5, 10, -3, 5],
+              filter: ["blur(2px)", "blur(1px)", "blur(0px)", "blur(1px)", "blur(2px)", "blur(3px)"]
+            }}
+            transition={{
+              duration: 4,
+              repeat: Infinity,
+              delay: item.delay * 0.8,
+              ease: "easeInOut"
+            }}
+            style={{ 
+              left: item.x, 
+              top: item.y,
+              transformStyle: "preserve-3d"
+            }}
+          >
+            <item.icon className="w-12 h-12" />
+          </motion.div>
+        ))}
+
+        {/* Floating Background Text */}
+        {[
+          { text: "Tech Journal", x: '8%', y: '12%', delay: 0.2, size: 'text-xl' },
+          { text: "AI/ML", x: '85%', y: '18%', delay: 0.8, size: 'text-lg' },
+          { text: "DevOps", x: '12%', y: '88%', delay: 1.4, size: 'text-lg' },
+          { text: "Cloud", x: '78%', y: '82%', delay: 2.0, size: 'text-lg' },
+          { text: "Tutorials", x: '92%', y: '45%', delay: 2.6, size: 'text-lg' },
+          { text: "LangChain", x: '5%', y: '65%', delay: 3.2, size: 'text-base' },
+          { text: "Jenkins", x: '88%', y: '72%', delay: 3.8, size: 'text-base' },
+          { text: "AWS Lambda", x: '15%', y: '35%', delay: 4.4, size: 'text-base' },
+          { text: "Docker", x: '82%', y: '28%', delay: 5.0, size: 'text-base' },
+          { text: "Insights", x: '25%', y: '78%', delay: 5.6, size: 'text-sm' },
+          { text: "Experiences", x: '75%', y: '15%', delay: 6.2, size: 'text-sm' },
+          { text: "Best Practices", x: '45%', y: '92%', delay: 6.8, size: 'text-sm' },
+          { text: "Security", x: '95%', y: '68%', delay: 7.4, size: 'text-sm' },
+          { text: "Deployment", x: '3%', y: '42%', delay: 8.0, size: 'text-sm' },
+          { text: "Architecture", x: '68%', y: '88%', delay: 8.6, size: 'text-sm' },
+        ].map((item, index) => (
+          <motion.div
+            key={`text-${index}`}
+            className="absolute text-blue-500/60 dark:text-purple-400/55 font-semibold tracking-wide"
+            initial={{ 
+              opacity: 0, 
+              scale: 0.9,
+              z: -80,
+              rotateZ: -8,
+              filter: "blur(1px)"
+            }}
+            animate={{ 
+              opacity: [0, 0.4, 0.8, 0.6, 0.3, 0],
+              scale: [0.9, 1.05, 1.15, 1.05, 0.95, 0.85],
+              z: [-80, -40, 0, 40, 80, 120],
+              rotateZ: [-8, -4, 0, 4, 8, 12],
+              y: [0, -15, -30, -45, -60, -75],
+              x: [0, 3, -2, 4, -1, 2],
+              filter: ["blur(1px)", "blur(0.5px)", "blur(0px)", "blur(0.5px)", "blur(1px)", "blur(1.5px)"]
+            }}
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              delay: item.delay,
+              ease: "easeInOut"
+            }}
+            style={{ 
+              left: item.x, 
+              top: item.y,
+              transformStyle: "preserve-3d"
+            }}
+          >
+            <span className={item.size}>{item.text}</span>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Main Content */}
+      <div className="relative z-10 container mx-auto px-4 py-20">
         <motion.div
           variants={containerVariants}
           initial="hidden"

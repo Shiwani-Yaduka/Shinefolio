@@ -5,13 +5,13 @@ import { Heart, Code, Coffee } from 'lucide-react';
 const Footer: React.FC = () => {
   return (
     <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-6 sm:py-8">
         <div className="text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-center justify-center space-x-2 text-gray-600 dark:text-gray-400"
+            className="flex flex-col sm:flex-row items-center justify-center space-y-1 sm:space-y-0 sm:space-x-2 text-gray-600 dark:text-gray-400 text-sm sm:text-base"
           >
             <span>Made with</span>
             <Heart className="w-4 h-4 text-red-500 fill-current" />
