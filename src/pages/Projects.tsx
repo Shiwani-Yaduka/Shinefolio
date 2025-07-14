@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, ExternalLink, Code, Database, Cloud, Brain, Sparkles, Cpu } from 'lucide-react';
+import { Github, Code, Database, Cloud, Brain, Sparkles, Cpu } from 'lucide-react';
 
 const Projects: React.FC = () => {
   const projects = [
     {
       title: 'Smart To-Do List',
       description: 'A Linux-based productivity app with intuitive UI to organize daily tasks. Built as a competition project, it includes task filters, date tracking, and persistence. Clean structure and design for fast navigation and usability. Automating the completion of task using Generative AI and giving a downloadable report of the task completion.',
-      techStack: ['Python', 'Flask', 'SQLite', 'HTML/CSS'],
+      techStack: ['Python', 'Streamlit', 'Generative AI', 'FPDF'],
       githubUrl: 'https://github.com/Shiwani-Yaduka/SmartTo-DoListApp',
       icon: Code,
       gradient: 'from-blue-500 to-cyan-500',
@@ -16,7 +16,7 @@ const Projects: React.FC = () => {
     {
       title: 'VirtualHoney',
       description: 'A personalized AI chatbot designed to mimic a specific person\'s tone using generative AI. Combines structured prompts and memory to create a highly engaging conversation experience. Built with a modular LangChain-based architecture.',
-      techStack: ['LangChain', 'OpenAI', 'Python', 'Streamlit'],
+      techStack: ['Generative AI', 'OpenAI', 'Python', 'HTML/CSS/JavaScript'],
       githubUrl: 'https://github.com/Shiwani-Yaduka/VirtualHoney',
       icon: Brain,
       gradient: 'from-purple-500 to-pink-500',
@@ -25,7 +25,7 @@ const Projects: React.FC = () => {
     {
       title: 'Remote SSH Menu-Based Dashboard',
       description: 'A secure dashboard to execute remote Linux commands over SSH via a web-based menu system. Useful for remote system admins or students practicing command-line automation. Built using Gradio UI and containerized for deployment.',
-      techStack: ['Python', 'Gradio', 'Docker', 'SSH', 'Linux'],
+      techStack: ['Python', 'Gradio', 'Docker', 'SSH', 'Linux', 'Twilio', 'Pywhatkit'],
       githubUrl: 'https://github.com/Shiwani-Yaduka/Remote-SSH-Menu-Based',
       icon: Database,
       gradient: 'from-green-500 to-emerald-500',
@@ -35,7 +35,7 @@ const Projects: React.FC = () => {
       title: 'Smart Book Reading Tracker',
       description: 'A fully serverless book tracker app using AWS to log, analyze, and visualize reading habits. It uses scheduled events, database triggers, and log monitoring to automate reminders and reading stats. Designed for scalability and low cost.',
       techStack: ['AWS Lambda', 'Aurora MySQL', 'CloudWatch', 'Events', ' MySQLWorkbench'],
-      githubUrl: '#',
+      githubUrl: 'https://github.com/Shiwani-Yaduka/SMART_BOOK_TRACKING-AWS',
       icon: Cloud,
       gradient: 'from-orange-500 to-red-500',
       bgColor: 'bg-orange-50 dark:bg-orange-900/20',
@@ -233,98 +233,205 @@ const Projects: React.FC = () => {
             <div className="w-16 sm:w-20 md:w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto rounded-full mt-4 sm:mt-6"></div>
           </motion.div>
 
-          {/* Projects Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+          {/* Enhanced 3D Projects Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 relative">
+            {/* 3D Background Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              <motion.div
+                className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"
+                animate={{ 
+                  scale: [1, 1.2, 1],
+                  rotate: [0, 180, 360],
+                  x: [0, 50, 0],
+                  y: [0, -30, 0]
+                }}
+                transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+              />
+              <motion.div
+                className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-to-r from-pink-400/10 to-amber-400/10 rounded-full blur-3xl"
+                animate={{ 
+                  scale: [1, 0.8, 1],
+                  rotate: [0, -180, -360],
+                  x: [0, -40, 0],
+                  y: [0, 40, 0]
+                }}
+                transition={{ duration: 25, repeat: Infinity, ease: "easeInOut" }}
+              />
+            </div>
+
             {projects.map((project, index) => (
               <motion.div
                 key={index}
-                variants={itemVariants}
-                className={`${project.bgColor} backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 group`}
-                whileHover={{ scale: 1.02, y: -5 }}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
+                className="group relative perspective-1000"
+                initial={{ opacity: 0, rotateX: -30, y: 100 }}
+                whileInView={{ opacity: 1, rotateX: 0, y: 0 }}
+                transition={{ 
+                  delay: index * 0.2, 
+                  duration: 0.8,
+                  type: "spring",
+                  stiffness: 100,
+                  damping: 15
+                }}
+                viewport={{ once: true }}
+                whileHover={{ 
+                  rotateY: 5,
+                  rotateX: -5,
+                  scale: 1.05,
+                  z: 50
+                }}
               >
-                {/* Project Header */}
-                <div className="flex items-center space-x-3 sm:space-x-4 mb-4 sm:mb-6">
-                  <div className={`w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-gradient-to-r ${project.gradient} rounded-xl flex items-center justify-center shadow-lg`}>
-                    <project.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white" />
+                {/* 3D Card Container */}
+                <div className={`relative transform-style-preserve-3d transition-all duration-700 group-hover:rotate-y-5 group-hover:rotate-x-[-5deg]`}>
+                  {/* Glowing Border Effect */}
+                  <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="w-full h-full rounded-3xl bg-white dark:bg-gray-900"></div>
                   </div>
-                  <div>
-                    <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-800 dark:text-white">
-                      {project.title}
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Project Description */}
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed">
-                  {project.description}
-                </p>
-
-                {/* Tech Stack */}
-                <div className="mb-4 sm:mb-6">
-                  <h4 className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-400 mb-2 sm:mb-3 uppercase tracking-wide">
-                    Tech Stack
-                  </h4>
-                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
-                    {project.techStack.map((tech, techIndex) => (
-                      <span
-                        key={techIndex}
-                        className="px-2 sm:px-3 py-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-full text-xs sm:text-sm font-medium text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Project Actions */}
-                <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
-                  <motion.a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={`flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-gradient-to-r ${project.gradient} text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base`}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Github className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span>View Code</span>
-                  </motion.a>
                   
-                  <motion.button
-                    className="flex items-center justify-center space-x-2 px-4 sm:px-6 py-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-gray-700 dark:text-gray-300 font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200 dark:border-gray-700 text-sm sm:text-base"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <ExternalLink className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span>Demo</span>
-                  </motion.button>
+                  {/* Animated Background Gradient */}
+                  <motion.div
+                    className={`absolute inset-0 ${project.bgColor} rounded-3xl backdrop-blur-sm`}
+                    animate={{ 
+                      background: [
+                        `linear-gradient(135deg, ${project.bgColor.replace('bg-', 'rgba(').replace('/20', ', 0.1)')} 0%, rgba(147, 51, 234, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%)`,
+                        `linear-gradient(135deg, rgba(236, 72, 153, 0.1) 0%, ${project.bgColor.replace('bg-', 'rgba(').replace('/20', ', 0.1)')} 50%, rgba(147, 51, 234, 0.1) 100%)`,
+                        `linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(236, 72, 153, 0.1) 50%, ${project.bgColor.replace('bg-', 'rgba(').replace('/20', ', 0.1)')} 100%)`
+                      ]
+                    }}
+                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                  
+                  {/* Main Card Content */}
+                  <div className="relative p-8 sm:p-10 rounded-3xl shadow-2xl hover:shadow-3xl transition-all duration-500 border border-white/20 dark:border-gray-700/20">
+                    {/* Floating Particles */}
+                    <motion.div
+                      className="absolute top-4 right-4 w-2 h-2 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100"
+                      animate={{ 
+                        scale: [1, 1.5, 1],
+                        opacity: [0, 1, 0],
+                        y: [0, -20, 0]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 }}
+                    />
+                    <motion.div
+                      className="absolute bottom-4 left-4 w-2 h-2 bg-purple-400 rounded-full opacity-0 group-hover:opacity-100"
+                      animate={{ 
+                        scale: [1, 1.5, 1],
+                        opacity: [0, 1, 0],
+                        y: [0, 20, 0]
+                      }}
+                      transition={{ duration: 2, repeat: Infinity, delay: index * 0.3 + 0.5 }}
+                    />
+                    
+                    {/* Enhanced Project Header */}
+                    <div className="flex items-center space-x-4 mb-6 relative z-10">
+                      <motion.div 
+                        className={`relative w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-r ${project.gradient} rounded-2xl flex items-center justify-center shadow-2xl group-hover:shadow-3xl transition-all duration-300`}
+                        whileHover={{ scale: 1.1, rotate: 360 }}
+                        transition={{ duration: 0.6 }}
+                      >
+                        {/* Icon Glow Effect */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-white/30 to-transparent rounded-2xl"
+                          animate={{ scale: [1, 1.2, 1] }}
+                          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+                        />
+                        <project.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white relative z-10" />
+                      </motion.div>
+                      <div>
+                        <motion.h3 
+                          className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-800 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 transition-all duration-300"
+                          whileHover={{ scale: 1.05 }}
+                        >
+                          {project.title}
+                        </motion.h3>
+                      </div>
+                    </div>
+
+                    {/* Enhanced Project Description */}
+                    <motion.p 
+                      className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-6 leading-relaxed relative z-10"
+                      whileHover={{ scale: 1.02 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {project.description}
+                    </motion.p>
+
+                    {/* Enhanced Tech Stack */}
+                    <div className="mb-6 relative z-10">
+                      <motion.h4 
+                        className="text-xs sm:text-sm font-bold text-gray-700 dark:text-gray-400 mb-3 uppercase tracking-wider"
+                        whileHover={{ scale: 1.05 }}
+                      >
+                        Tech Stack
+                      </motion.h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.techStack.map((tech, techIndex) => (
+                          <motion.span
+                            key={techIndex}
+                            className="px-3 py-2 bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-xl text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300"
+                            whileHover={{ scale: 1.1, y: -2 }}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: techIndex * 0.1 }}
+                          >
+                            {tech}
+                          </motion.span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Enhanced Project Actions */}
+                    <div className="flex justify-center relative z-10">
+                      <motion.a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group relative flex items-center justify-center space-x-3 px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r ${project.gradient} text-white font-bold rounded-2xl shadow-2xl hover:shadow-3xl transition-all duration-500 text-sm sm:text-base overflow-hidden`}
+                        whileHover={{ scale: 1.05, y: -3 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        {/* Shimmer Effect */}
+                        <motion.div
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                          initial={{ x: "-100%" }}
+                          whileHover={{ x: "100%" }}
+                          transition={{ duration: 0.8 }}
+                        />
+                        
+                        {/* Button Content */}
+                        <Github className="w-5 h-5 sm:w-6 sm:h-6 relative z-10 group-hover:animate-bounce" />
+                        <span className="relative z-10">View Code</span>
+                        
+                        {/* Floating Accent */}
+                        <motion.div
+                          className="absolute -top-1 -right-1 w-3 h-3 bg-white/30 rounded-full"
+                          animate={{ 
+                            scale: [1, 1.5, 1],
+                            opacity: [0.5, 1, 0.5]
+                          }}
+                          transition={{ duration: 2, repeat: Infinity }}
+                        />
+                      </motion.a>
+                    </div>
+                    
+                    {/* Corner Accents */}
+                    <motion.div
+                      className="absolute top-0 right-0 w-0 h-0 border-l-[25px] border-l-transparent border-t-[25px] border-t-blue-400/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      animate={{ rotate: [0, 90, 180, 270, 360] }}
+                      transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                    />
+                    <motion.div
+                      className="absolute bottom-0 left-0 w-0 h-0 border-r-[25px] border-r-transparent border-b-[25px] border-b-purple-400/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                      animate={{ rotate: [0, -90, -180, -270, -360] }}
+                      transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                    />
+                  </div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Call to Action */}
-          <motion.div
-            variants={itemVariants}
-            className="text-center mt-8 sm:mt-12 md:mt-16 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 sm:p-8 shadow-xl mx-4"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-white mb-3 sm:mb-4">
-              Interested in collaborating?
-            </h2>
-            <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-4 sm:mb-6">
-              I'm always open to discussing new projects and opportunities.
-            </p>
-            <motion.button
-              className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 text-sm sm:text-base"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Get In Touch
-            </motion.button>
-          </motion.div>
+
         </motion.div>
       </div>
     </div>
